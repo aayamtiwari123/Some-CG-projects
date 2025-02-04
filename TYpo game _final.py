@@ -11,13 +11,13 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Typo Game')
 
-# Colors
+
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
-
+#using ntk to load some words 
 nltk.download('words')
 
 # Load word list
@@ -28,19 +28,18 @@ font = pygame.font.SysFont("Arial", 32)
 
 # Game variables
 random_word = random.choice(word_list)
-x = random.randint(50, WIDTH - 150)
+x = random.randint(50, WIDTH - 150)# we did 150 so it looks better in screen
 y = 0
 
 score = 0
 input_text = ""
 fall_speed = 1  # Initial fall speed
-frame_rate = 30  # Initial FPS
+frame_rate = 20  # Initial FPS
 game_over = False  # Track game state
 paused = False  # Pause state
 level = None  # None until player selects a level
 
 def draw_level_selection():
-    """Displays level selection screen."""
     screen.fill(WHITE)
     title_text = font.render("Select Level:", True, BLACK)
     easy_text = font.render("Press 1 for EASY", True, GREEN)
@@ -53,7 +52,7 @@ def draw_level_selection():
     pygame.display.flip()
 
 def fall_word():
-    """Moves the falling word down."""
+   
     global y, game_over
     screen.fill(WHITE)
 
@@ -67,12 +66,12 @@ def fall_word():
             game_over = True
 
 def display_input():
-    """Displays the user input on screen."""
+    
     input_surface = font.render(f"Input: {input_text}", True, BLACK)
     screen.blit(input_surface, (10, HEIGHT - 40))
 
 def display_game_over():
-    """Displays the game over screen."""
+    
     game_over_text = font.render(f"Game Over! Score: {score}", True, RED)
     restart_text = font.render("Press R to Restart", True, BLACK)
     
@@ -80,12 +79,12 @@ def display_game_over():
     screen.blit(restart_text, (WIDTH // 2 - 100, HEIGHT // 2 + 40))
 
 def display_pause():
-    """Displays the pause screen."""
+    
     pause_text = font.render("Game Paused. Press ESC to Resume", True, BLACK)
     screen.blit(pause_text, (WIDTH // 2 - 150, HEIGHT // 2))
 
 def check_input():
-    """Checks if the input matches the falling word."""
+    
     global input_text, random_word, x, y, score, fall_speed, frame_rate
     if input_text.lower() == random_word.lower():
         score += 1  # Increase score by 1
@@ -161,4 +160,4 @@ while running:
         display_game_over()
 
     pygame.display.flip()
-    clock.tick(frame_rate)  # Dynamic FPS
+    clock.tick(frame_rate)  
